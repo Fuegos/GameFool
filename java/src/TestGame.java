@@ -36,6 +36,13 @@ public class TestGame {
         Assertions.assertNotNull(trump);
     }
 
+    @Test
+    void namePlayingCardTrump() {
+        PlayingCard playingCard = new Card("Дама", "черви");
+        Trump trump = new Trump(playingCard, "козырь");
+        Assertions.assertEquals(trump.getPhrase(), "Дама черви козырь");
+    }
+
 
 
     @Test
