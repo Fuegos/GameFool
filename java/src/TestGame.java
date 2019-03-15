@@ -8,4 +8,10 @@ public class TestGame {
         Card card = new Card();
         Assertions.assertNotNull(card);
     }
+
+    @Test
+    void nameCard() {
+        Card card = new Card();
+        Assertions.assertEquals(card.getName(), "4 черви!");
+    }
 }
