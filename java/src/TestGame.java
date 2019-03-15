@@ -38,9 +38,17 @@ public class TestGame {
 
     @Test
     void namePlayingCardTrump() {
+        PlayingCard playingCard = new Card("7", "черви");
+        Trump trump = new Trump(playingCard, "козырь");
+        Assertions.assertEquals(trump.getPhrase(), "7 черви козырь");
+    }
+
+    @Test
+    void namePlayingCardTrumpWithFace() {
         PlayingCard playingCard = new Card("Дама", "черви");
         Trump trump = new Trump(playingCard, "козырь");
-        Assertions.assertEquals(trump.getPhrase(), "Дама черви козырь");
+        Face face = new Face(trump, "D");
+        Assertions.assertEquals(face.getPhrase(), "Дама черви козырь (D)");
     }
 
 
