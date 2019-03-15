@@ -22,11 +22,18 @@ public class TestGame {
         Assertions.assertNotNull(face);
     }
 
+    @Test
+    void namePlayingCardWithFace() {
+        PlayingCard playingCard = new Card("Дама", "черви");
+        Face face = new Face(playingCard, "D");
+        Assertions.assertEquals(face.getPhrase(), "Дама черви (D)");
+    }
+
 
 
     @Test
     void nameCard() {
         Card card = new Card("4", "черви");
-        Assertions.assertEquals(card.getPhrase(), "4 черви!");
+        Assertions.assertEquals(card.getPhrase(), "4 черви");
     }
 }

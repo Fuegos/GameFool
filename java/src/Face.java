@@ -8,6 +8,6 @@ public class Face extends DecoratorCard {
     }
 
     public String getPhrase() {
-        return super.getPhrase() + " (" + nomen + ")!";
+        return super.getPhrase() + " (" + nomen + ")";
     }
 }

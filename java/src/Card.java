@@ -8,6 +8,6 @@ public class Card implements PlayingCard {
     }
 
     public String getPhrase() {
-        return this.symbol + " " + suit + "!";
+        return this.symbol + " " + suit;
     }
 }
