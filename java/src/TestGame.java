@@ -5,19 +5,19 @@ public class TestGame {
 
     @Test
     void createCard() {
-        Card card = new Card();
+        Card card = new Card("4", "черви");
         Assertions.assertNotNull(card);
     }
 
     @Test
     void createPlayingCard() {
-        PlayingCard playingCard = new Card();
+        PlayingCard playingCard = new Card("4", "черви");
         Assertions.assertNotNull(playingCard);
     }
 
     @Test
     void nameCard() {
-        Card card = new Card();
+        Card card = new Card("4", "черви");
         Assertions.assertEquals(card.getPhrase(), "4 черви!");
     }
 }
