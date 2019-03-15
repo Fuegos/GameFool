@@ -17,8 +17,8 @@ public class TestGame {
 
     @Test
     void createPlayingCardWithFace() {
-        PlayingCard playingCard = new Card("D", "черви");
-        Face face = new Face(playingCard, "Дама");
+        PlayingCard playingCard = new Card("Дама", "черви");
+        Face face = new Face(playingCard, "D");
         Assertions.assertNotNull(face);
     }
 

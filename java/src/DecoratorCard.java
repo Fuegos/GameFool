@@ -1,11 +1,13 @@
 abstract class DecoratorCard implements PlayingCard {
 
     private PlayingCard playingCard;
-    private String phrase;
 
-    public DecoratorCard(PlayingCard playingCard, String phrase) {
+    public DecoratorCard(PlayingCard playingCard) {
         this.playingCard = playingCard;
-        this.phrase = phrase;
+    }
+
+    public String getPhrase() {
+        return playingCard.getPhrase();
     }
 
 
