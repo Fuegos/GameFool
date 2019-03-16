@@ -57,6 +57,14 @@ public class TestGame {
         Assertions.assertNotNull(pack);
     }
 
+    @Test
+    void createOnlyOnePack() {
+        Pack packOne = new Pack();
+        Pack packTwo = new Pack();
+        Assertions.assertArrayEquals(packOne.getCard(), packTwo.getCard());
+    }
+
+
 
     @Test
     void nameCard() {
