@@ -53,28 +53,35 @@ public class TestGame {
 
     @Test
     void createPack() {
-        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")});
+        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
         Assertions.assertNotNull(pack);
     }
 
     @Test
     void createOnlyOnePack() {
-        Pack packOne = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")});
-        Pack packTwo = Pack.getInstanse(new Card[]{new Card("4", "черви"), new Card("6", "бубен")});
+        Pack packOne = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
+        Pack packTwo = Pack.getInstanse(new Card[]{new Card("4", "черви"), new Card("6", "бубен")}, "черви");
         Assertions.assertArrayEquals(packOne.getCard(), packTwo.getCard());
     }
 
     @Test
     void checkLogsSingletonOne() {
-        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")});
+        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
         Assertions.assertNotNull(pack.getLogs(), "Колода собрана!");
     }
 
     @Test
     void checkLogsSingletonTwo() {
-        Pack packOne = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")});
-        Pack packTwo = Pack.getInstanse(new Card[]{new Card("4", "черви"), new Card("6", "бубен")});
+        Pack packOne = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
+        Pack packTwo = Pack.getInstanse(new Card[]{new Card("4", "черви"), new Card("6", "бубен")}, "черви");
         Assertions.assertNotNull(packOne.getLogs(), "Колода уже существует!");
+    }
+
+    @Test
+    void getTrump() {
+        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
+        Assertions.assertEquals(pack.getTrump(), "черви");
+
     }
 
 
