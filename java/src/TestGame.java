@@ -53,14 +53,14 @@ public class TestGame {
 
     @Test
     void createPack() {
-        Pack pack = new Pack();
+        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")});
         Assertions.assertNotNull(pack);
     }
 
     @Test
     void createOnlyOnePack() {
-        Pack packOne = new Pack();
-        Pack packTwo = new Pack();
+        Pack packOne = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")});
+        Pack packTwo = Pack.getInstanse(new Card[]{new Card("4", "черви"), new Card("6", "бубен")});
         Assertions.assertArrayEquals(packOne.getCard(), packTwo.getCard());
     }
 
