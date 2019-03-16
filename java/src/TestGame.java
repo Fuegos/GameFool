@@ -64,6 +64,19 @@ public class TestGame {
         Assertions.assertArrayEquals(packOne.getCard(), packTwo.getCard());
     }
 
+    @Test
+    void checkLogsSingletonOne() {
+        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")});
+        Assertions.assertNotNull(pack.getLogs(), "Колода собрана!");
+    }
+
+    @Test
+    void checkLogsSingletonTwo() {
+        Pack packOne = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")});
+        Pack packTwo = Pack.getInstanse(new Card[]{new Card("4", "черви"), new Card("6", "бубен")});
+        Assertions.assertNotNull(packOne.getLogs(), "Колода уже существует!");
+    }
+
 
 
     @Test
