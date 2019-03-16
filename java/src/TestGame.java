@@ -51,6 +51,11 @@ public class TestGame {
         Assertions.assertEquals(face.getPhrase(), "Дама черви козырь (D)");
     }
 
+    @Test
+    void createPack() {
+        Pack pack = new Pack();
+        Assertions.assertNotNull(pack);
+    }
 
 
     @Test
@@ -58,4 +63,6 @@ public class TestGame {
         Card card = new Card("4", "черви");
         Assertions.assertEquals(card.getPhrase(), "4 черви");
     }
+
+
 }
