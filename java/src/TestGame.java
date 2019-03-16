@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.util.ArrayList;
+
 public class TestGame {
 
     @Test
@@ -53,34 +56,68 @@ public class TestGame {
 
     @Test
     void createPack() {
-        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
+        ArrayList<Card> cards  = new ArrayList<Card>();
+        cards.add(new Card("4", "пик"));
+        cards.add(new Card("7", "треф"));
+        Pack pack = Pack.getInstanse(cards, "черви");
         Assertions.assertNotNull(pack);
     }
 
     @Test
     void createOnlyOnePack() {
-        Pack packOne = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
-        Pack packTwo = Pack.getInstanse(new Card[]{new Card("4", "черви"), new Card("6", "бубен")}, "черви");
-        Assertions.assertArrayEquals(packOne.getCard(), packTwo.getCard());
+        ArrayList<Card> cardsOne  = new ArrayList<Card>();
+        ArrayList<Card> cardsTwo  = new ArrayList<Card>();
+        cardsOne.add(new Card("4", "пик"));
+        cardsOne.add(new Card("7", "треф"));
+        cardsTwo.add(new Card("4", "черви"));
+        cardsTwo.add(new Card("6", "бубен"));
+        Pack packOne = Pack.getInstanse(cardsOne, "черви");
+        Pack packTwo = Pack.getInstanse(cardsTwo, "черви");
+        Assertions.assertArrayEquals(packOne.getCard().toArray(), packTwo.getCard().toArray());
     }
 
     @Test
     void checkLogsSingletonOne() {
-        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(new Card("4", "пик"));
+        cards.add(new Card("7", "треф"));
+        Pack pack = Pack.getInstanse(cards, "черви");
         Assertions.assertNotNull(pack.getLogs(), "Колода собрана!");
     }
 
     @Test
     void checkLogsSingletonTwo() {
-        Pack packOne = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
-        Pack packTwo = Pack.getInstanse(new Card[]{new Card("4", "черви"), new Card("6", "бубен")}, "черви");
+        ArrayList<Card> cardsOne  = new ArrayList<Card>();
+        ArrayList<Card> cardsTwo  = new ArrayList<Card>();
+        cardsOne.add(new Card("4", "пик"));
+        cardsOne.add(new Card("7", "треф"));
+        cardsTwo.add(new Card("4", "черви"));
+        cardsTwo.add(new Card("6", "бубен"));
+        Pack packOne = Pack.getInstanse(cardsOne, "черви");
+        Pack packTwo = Pack.getInstanse(cardsTwo, "черви");
         Assertions.assertNotNull(packOne.getLogs(), "Колода уже существует!");
     }
 
     @Test
     void getTrump() {
-        Pack pack = Pack.getInstanse(new Card[]{new Card("4", "пик"), new Card("7", "треф")}, "черви");
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(new Card("4", "пик"));
+        cards.add(new Card("7", "треф"));
+        Pack pack = Pack.getInstanse(cards, "черви");
         Assertions.assertEquals(pack.getTrump(), "черви");
+    }
+
+    @Test
+    void extractCardOfPack() {
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(new Card("4", "пик"));
+        cards.add(new Card("7", "треф"));
+        Pack pack = Pack.getInstanse(cards, "черви");
+        int sizeBefor = pack.getCard().size();
+        Card card = pack.extractCard();
+        System.out.println(card.getPhrase());
+        int sizeAfter = pack.getCard().size();
+        Assertions.assertTrue((sizeBefor - sizeAfter) == 1);
 
     }
 
