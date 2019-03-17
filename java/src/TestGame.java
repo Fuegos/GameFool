@@ -228,13 +228,14 @@ public class TestGame {
     @Test
     void createCoR() {
         Match match = new Match();
-        HandlerSet handlerPutCard = new HandlerPutCard();
+        HandlerSet handlerCheckWin = new HandlerCheckWin();
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerCheckWin);
         HandlerSet handlerTossCard = new HandlerTossCard(handlerPutCard);
         HandlerSet handlerCloseSet = new HandlerCloseSet(handlerTossCard);
         HandlerSet handlerRepelCard = new HandlerRepelCard(handlerCloseSet);
         HandlerSet handlerPickUpCard = new HandlerPickUpCard(handlerRepelCard);
         Assertions.assertNotNull(handlerPutCard);
-
-
     }
+
+
 }

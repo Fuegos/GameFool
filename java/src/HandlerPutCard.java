@@ -4,9 +4,6 @@ public class HandlerPutCard extends HandlerSet {
         super(handlerSet);
     }
 
-    public HandlerPutCard() {
-        super();
-    }
 
     @Override
     public void work(Match match) {
