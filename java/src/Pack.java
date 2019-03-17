@@ -55,4 +55,8 @@ public class Pack {
             instanse.card.add(copyCard.get(i));
         }
     }
+
+    public static void deletePack() {
+        instanse = null;
+    }
 }

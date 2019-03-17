@@ -55,6 +55,7 @@ public class TestGame {
 
     @Test
     void createPack() {
+        Pack.deletePack();
         ArrayList<Card> cards  = new ArrayList<Card>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
@@ -64,6 +65,7 @@ public class TestGame {
 
     @Test
     void createOnlyOnePack() {
+        Pack.deletePack();
         ArrayList<Card> cardsOne  = new ArrayList<Card>();
         ArrayList<Card> cardsTwo  = new ArrayList<Card>();
         cardsOne.add(new Card("4", "пик"));
@@ -77,6 +79,7 @@ public class TestGame {
 
     @Test
     void checkLogsSingletonOne() {
+        Pack.deletePack();
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
@@ -86,6 +89,7 @@ public class TestGame {
 
     @Test
     void checkLogsSingletonTwo() {
+        Pack.deletePack();
         ArrayList<Card> cardsOne  = new ArrayList<Card>();
         ArrayList<Card> cardsTwo  = new ArrayList<Card>();
         cardsOne.add(new Card("4", "пик"));
@@ -99,6 +103,7 @@ public class TestGame {
 
     @Test
     void getTrump() {
+        Pack.deletePack();
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
@@ -108,6 +113,7 @@ public class TestGame {
 
     @Test
     void extractCardOfPack() {
+        Pack.deletePack();
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
@@ -122,6 +128,7 @@ public class TestGame {
 
     @Test
     void resetPack() {
+        Pack.deletePack();
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
@@ -131,6 +138,13 @@ public class TestGame {
         pack.resetGard();
         int sizeAfter = pack.getCard().size();
         Assertions.assertEquals(sizeAfter, 2);
+    }
+
+    @Test
+    void collectPack() {
+        Pack.deletePack();
+        CollectPack collect = new CollectPack();
+        Pack pack = Pack.getInstanse(collect.getCard(), "пик");
     }
 
 
