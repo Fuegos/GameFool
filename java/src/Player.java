@@ -5,6 +5,7 @@ public class Player {
     private String name;
     private PlayingCard activeCard;
     private int countWins = 0;
+    private boolean wontToBeat = true;
 
     public Player(String name) {
         this.name = name;
@@ -39,5 +40,17 @@ public class Player {
     public boolean checkRepel() {
         //todo доработать
         return true;
+    }
+
+    public void setWontToBeat() {
+        this.wontToBeat = true;
+    }
+
+    public void setNotWontToBeat() {
+        this.wontToBeat = false;
+    }
+
+    public boolean getWontToBeat() {
+        return this.wontToBeat;
     }
 }
