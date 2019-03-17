@@ -7,6 +7,22 @@ public class Pack {
     private String trump;
     private ArrayList<Card> copyCard;
 
+    private Pack() {
+
+    }
+
+    public void setCard(ArrayList<Card> card) {
+        instanse.card = card;
+        this.copyCard = new ArrayList<Card>();
+        for (int i = 0; i < this.card.size(); i++) {
+            this.copyCard.add(card.get(i));
+        }
+    }
+
+    public void setTrump(String trump) {
+        instanse.trump = trump;
+    }
+
     private Pack(ArrayList<Card> card, String trump) {
         this.card = card;
         this.trump = trump;
@@ -19,6 +35,17 @@ public class Pack {
     public static Pack getInstanse(ArrayList<Card> card, String trump) {
         if (instanse == null) {
             instanse = new Pack(card, trump);
+            instanse.logs = "Колода собрана!";
+        }
+        else {
+            instanse.logs = "Колода уже существует!";
+        }
+        return instanse;
+    }
+
+    public static Pack getInstanse() {
+        if (instanse == null) {
+            instanse = new Pack();
             instanse.logs = "Колода собрана!";
         }
         else {

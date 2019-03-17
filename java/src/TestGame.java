@@ -143,11 +143,9 @@ public class TestGame {
     @Test
     void collectPack() {
         Pack.deletePack();
-        CollectPack collect = new CollectPack();
-        Pack pack = Pack.getInstanse(collect.getCard(), "пик");
+        BuilderPack collect = new BuilderPack36();
+        Assertions.assertNotNull(collect);
     }
-
-
 
     @Test
     void nameCard() {
