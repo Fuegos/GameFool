@@ -5,10 +5,15 @@ public class Pack {
     private ArrayList<Card> card;
     private String logs;
     private String trump;
+    private ArrayList<Card> copyCard;
 
     private Pack(ArrayList<Card> card, String trump) {
         this.card = card;
         this.trump = trump;
+        this.copyCard = new ArrayList<Card>();
+        for (int i = 0; i < this.card.size(); i++) {
+            this.copyCard.add(card.get(i));
+        }
     }
 
     public static Pack getInstanse(ArrayList<Card> card, String trump) {
@@ -42,5 +47,12 @@ public class Pack {
             return card;
         }
         return null;
+    }
+
+    public void resetGard() {
+        instanse.card.clear();
+        for (int i = 0; i < instanse.copyCard.size(); i++) {
+            instanse.card.add(copyCard.get(i));
+        }
     }
 }

@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 
 public class TestGame {
@@ -117,8 +116,21 @@ public class TestGame {
         Card card = pack.extractCard();
         System.out.println(card.getPhrase());
         int sizeAfter = pack.getCard().size();
+        pack.resetGard();
         Assertions.assertTrue((sizeBefor - sizeAfter) == 1);
+    }
 
+    @Test
+    void resetPack() {
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(new Card("4", "пик"));
+        cards.add(new Card("7", "треф"));
+        Pack pack = Pack.getInstanse(cards, "крести");
+        int sizeBefor = pack.getCard().size();
+        Card card = pack.extractCard();
+        pack.resetGard();
+        int sizeAfter = pack.getCard().size();
+        Assertions.assertEquals(sizeAfter, 2);
     }
 
 
