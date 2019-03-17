@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 public class TestGame {
 
@@ -224,4 +225,16 @@ public class TestGame {
         Assertions.assertEquals(pack.getCard().size(), 56, "Число карт = " + pack.getCard().size());
     }
 
+    @Test
+    void createCoR() {
+        Match match = new Match();
+        HandlerSet handlerPutCard = new HandlerPutCard();
+        HandlerSet handlerTossCard = new HandlerTossCard(handlerPutCard);
+        HandlerSet handlerCloseSet = new HandlerCloseSet(handlerTossCard);
+        HandlerSet handlerRepelCard = new HandlerRepelCard(handlerCloseSet);
+        HandlerSet handlerPickUpCard = new HandlerPickUpCard(handlerRepelCard);
+        Assertions.assertNotNull(handlerPutCard);
+
+
+    }
 }
