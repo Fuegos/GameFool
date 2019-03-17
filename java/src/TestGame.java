@@ -141,9 +141,16 @@ public class TestGame {
     }
 
     @Test
-    void collectPack() {
+    void collectPack36() {
         Pack.deletePack();
         BuilderPack collect = new BuilderPack36();
+        Assertions.assertNotNull(collect);
+    }
+
+    @Test
+    void collectPack54() {
+        Pack.deletePack();
+        BuilderPack collect = new BuilderPack54();
         Assertions.assertNotNull(collect);
     }
 
