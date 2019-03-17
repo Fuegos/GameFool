@@ -12,6 +12,12 @@ public class TestGame {
     }
 
     @Test
+    void nameCard() {
+        Card card = new Card("4", "черви");
+        Assertions.assertEquals(card.getPhrase(), "4 черви");
+    }
+
+    @Test
     void createPlayingCard() {
         PlayingCard playingCard = new Card("4", "черви");
         Assertions.assertNotNull(playingCard);
@@ -56,7 +62,7 @@ public class TestGame {
     @Test
     void createPack() {
         Pack.deletePack();
-        ArrayList<Card> cards  = new ArrayList<Card>();
+        ArrayList<PlayingCard> cards  = new ArrayList<PlayingCard>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
         Pack pack = Pack.getInstanse(cards, "черви");
@@ -66,8 +72,8 @@ public class TestGame {
     @Test
     void createOnlyOnePack() {
         Pack.deletePack();
-        ArrayList<Card> cardsOne  = new ArrayList<Card>();
-        ArrayList<Card> cardsTwo  = new ArrayList<Card>();
+        ArrayList<PlayingCard> cardsOne  = new ArrayList<PlayingCard>();
+        ArrayList<PlayingCard> cardsTwo  = new ArrayList<PlayingCard>();
         cardsOne.add(new Card("4", "пик"));
         cardsOne.add(new Card("7", "треф"));
         cardsTwo.add(new Card("4", "черви"));
@@ -80,7 +86,7 @@ public class TestGame {
     @Test
     void checkLogsSingletonOne() {
         Pack.deletePack();
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<PlayingCard> cards = new ArrayList<PlayingCard>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
         Pack pack = Pack.getInstanse(cards, "черви");
@@ -90,8 +96,8 @@ public class TestGame {
     @Test
     void checkLogsSingletonTwo() {
         Pack.deletePack();
-        ArrayList<Card> cardsOne  = new ArrayList<Card>();
-        ArrayList<Card> cardsTwo  = new ArrayList<Card>();
+        ArrayList<PlayingCard> cardsOne  = new ArrayList<PlayingCard>();
+        ArrayList<PlayingCard> cardsTwo  = new ArrayList<PlayingCard>();
         cardsOne.add(new Card("4", "пик"));
         cardsOne.add(new Card("7", "треф"));
         cardsTwo.add(new Card("4", "черви"));
@@ -104,7 +110,7 @@ public class TestGame {
     @Test
     void getTrump() {
         Pack.deletePack();
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<PlayingCard> cards = new ArrayList<PlayingCard>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
         Pack pack = Pack.getInstanse(cards, "черви");
@@ -114,12 +120,12 @@ public class TestGame {
     @Test
     void extractCardOfPack() {
         Pack.deletePack();
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<PlayingCard> cards = new ArrayList<PlayingCard>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
         Pack pack = Pack.getInstanse(cards, "черви");
         int sizeBefor = pack.getCard().size();
-        Card card = pack.extractCard();
+        PlayingCard card = pack.extractCard();
         System.out.println(card.getPhrase());
         int sizeAfter = pack.getCard().size();
         pack.resetGard();
@@ -129,12 +135,12 @@ public class TestGame {
     @Test
     void resetPack() {
         Pack.deletePack();
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<PlayingCard> cards = new ArrayList<PlayingCard>();
         cards.add(new Card("4", "пик"));
         cards.add(new Card("7", "треф"));
         Pack pack = Pack.getInstanse(cards, "крести");
         int sizeBefor = pack.getCard().size();
-        Card card = pack.extractCard();
+        PlayingCard card = pack.extractCard();
         pack.resetGard();
         int sizeAfter = pack.getCard().size();
         Assertions.assertEquals(sizeAfter, 2);
@@ -155,9 +161,17 @@ public class TestGame {
     }
 
     @Test
-    void nameCard() {
-        Card card = new Card("4", "черви");
-        Assertions.assertEquals(card.getPhrase(), "4 черви");
+    void buildPack36() {
+        Pack.deletePack();
+        Director director = new Director();
+        BuilderPack builderPack36 = new BuilderPack36();
+
+        director.setBuilderPack(builderPack36);
+        director.collectPack();
+
+        Pack pack = director.getBuilderPack();
+
+        Assertions.assertNotNull(pack);
     }
 
 

@@ -2,18 +2,18 @@ import java.util.ArrayList;
 
 public class Pack {
     private static Pack instanse;
-    private ArrayList<Card> card;
+    private ArrayList<PlayingCard> card;
     private String logs;
     private String trump;
-    private ArrayList<Card> copyCard;
+    private ArrayList<PlayingCard> copyCard;
 
     private Pack() {
 
     }
 
-    public void setCard(ArrayList<Card> card) {
+    public void setCard(ArrayList<PlayingCard> card) {
         instanse.card = card;
-        this.copyCard = new ArrayList<Card>();
+        this.copyCard = new ArrayList<PlayingCard>();
         for (int i = 0; i < this.card.size(); i++) {
             this.copyCard.add(card.get(i));
         }
@@ -23,16 +23,16 @@ public class Pack {
         instanse.trump = trump;
     }
 
-    private Pack(ArrayList<Card> card, String trump) {
+    private Pack(ArrayList<PlayingCard> card, String trump) {
         this.card = card;
         this.trump = trump;
-        this.copyCard = new ArrayList<Card>();
+        this.copyCard = new ArrayList<PlayingCard>();
         for (int i = 0; i < this.card.size(); i++) {
             this.copyCard.add(card.get(i));
         }
     }
 
-    public static Pack getInstanse(ArrayList<Card> card, String trump) {
+    public static Pack getInstanse(ArrayList<PlayingCard> card, String trump) {
         if (instanse == null) {
             instanse = new Pack(card, trump);
             instanse.logs = "Колода собрана!";
@@ -54,7 +54,7 @@ public class Pack {
         return instanse;
     }
 
-    public ArrayList<Card> getCard() {
+    public ArrayList<PlayingCard> getCard() {
         return instanse.card;
     }
 
@@ -66,10 +66,10 @@ public class Pack {
         return instanse.trump;
     }
 
-    public Card extractCard() {
+    public PlayingCard extractCard() {
         //todo доработать метод извлечения карты из колоды, обработка пустой колоды, запись в логи)
         if (card != null) {
-            Card card = instanse.card.get(0);
+            PlayingCard card = instanse.card.get(0);
             instanse.card.remove(card);
             return card;
         }
