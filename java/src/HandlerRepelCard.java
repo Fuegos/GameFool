@@ -5,7 +5,7 @@ public class HandlerRepelCard extends HandlerSet {
     }
 
     @Override
-    public void work(Match match, Player player) {
+    public void work(Match match, Player activePlayer, Player enemyPlayer) {
 
     }
 }

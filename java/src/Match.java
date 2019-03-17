@@ -1,5 +1,10 @@
+import java.util.ArrayList;
+
 public class Match {
     private Pack pack;
+    private ArrayList<PlayingCard> cache = new ArrayList<PlayingCard>();
+    private Player winPlayer;
+    private String logs;
 
     public void createPack(String type) {
         if (type.compareTo("36") == 0) {
@@ -28,7 +33,19 @@ public class Match {
         return this.pack;
     }
 
+    public void setLogs(String logs) {
+        this.logs = logs;
+    }
+
+    public String getLogs() {
+        return this.logs;
+    }
+
     public void clearPack() {
         this.pack.allExtractCard();
+    }
+
+    public ArrayList<PlayingCard> getCache() {
+        return this.cache;
     }
 }

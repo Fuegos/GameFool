@@ -244,13 +244,26 @@ public class TestGame {
         Match match = new Match();
         match.createPack("36");
         match.clearPack();
-        Player playerOne = new Player();
-        Player playerTwo = new Player();
-        handlerCheckWin.work(match, playerOne);
+        Player playerOne = new Player("Я");
+        Player playerTwo = new Player("Он");
+        handlerCheckWin.work(match, playerOne, playerTwo);
 
-        Assertions.assertEquals(((HandlerCheckWin) handlerCheckWin).logs, "Игрок выиграл!" );
+        Assertions.assertEquals(match.getLogs(), "Игрок Я выиграл!" );
+    }
 
-
+    @Test
+    void playSetPutCard() {
+        Pack.deletePack();
+        HandlerSet handlerCheckWin = new HandlerCheckWin();
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerCheckWin);
+        Match match = new Match();
+        match.createPack("36");
+        Player playerOne = new Player("Я");
+        playerOne.createFun(match.getPack());
+        Player playerTwo = new Player("Он");
+        playerTwo.createFun(match.getPack());
+        handlerPutCard.work(match, playerOne, playerTwo);
+        Assertions.assertEquals(match.getLogs(), "Игрок Я сделал ход!" );
     }
 
 
