@@ -4,7 +4,7 @@ public class Player {
     private ArrayList<PlayingCard> fun = new ArrayList<PlayingCard>();
     private String name;
     private PlayingCard activeCard;
-    private int countWins;
+    private int countWins = 0;
 
     public Player(String name) {
         this.name = name;
@@ -32,4 +32,12 @@ public class Player {
         this.fun.add(playingCard);
     }
 
+    public void putActiveCard(PlayingCard playingCard) {
+        this.activeCard = playingCard;
+    }
+
+    public boolean checkRepel() {
+        //todo доработать
+        return true;
+    }
 }

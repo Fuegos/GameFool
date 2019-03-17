@@ -276,7 +276,7 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
-        match.setCache("черви");
+        match.putCache(new Card("7","черви"));
         playerOne.putFun(new Card("7", "черви"));
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я подкинул картишек!");
@@ -295,9 +295,28 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
-        match.setCache("грязи");
+        match.putCache(new Card("7","грязи"));
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Он отбил карты!");
+    }
+
+    @Test
+    void playSetRepelCard() {
+        HandlerSet handlerRepelCard = new HandlerRepelCard();
+        HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
+        HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
+        HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
+
+        Match match = new Match();
+        match.createPack("36");
+        Player playerOne = new Player("Я");
+        playerOne.createFun(match.getPack());
+        Player playerTwo = new Player("Он");
+        playerTwo.createFun(match.getPack());
+        playerOne.putActiveCard(new Card("7", "пик"));
+        handlerCheckWin.work(match, playerOne, playerTwo);
+        Assertions.assertEquals(match.getLogs(), "Игрок Я отбил карту!");
     }
 
 

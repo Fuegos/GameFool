@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Match {
     private Pack pack;
-    private ArrayList<String> cache = new ArrayList<String>();
+    private ArrayList<PlayingCard> cache = new ArrayList<PlayingCard>();
     private Player winPlayer;
     private String logs;
 
@@ -45,16 +45,12 @@ public class Match {
         this.pack.allExtractCard();
     }
 
-    public void setCache(String suite) {
-        this.cache.add(suite);
-    }
-
-    public ArrayList<String> getCache() {
+    public ArrayList<PlayingCard> getCache() {
         return this.cache;
     }
 
-    public void putCache(String suit) {
-        this.cache.add(suit);
+    public void putCache(PlayingCard playingCard) {
+        this.cache.add(playingCard);
     }
 
     public void clearCache() {
@@ -64,7 +60,7 @@ public class Match {
     public boolean checkCache(ArrayList<PlayingCard> fun) {
         for (int i = 0; i < fun.size(); i++) {
             for (int j = 0; j < this.cache.size(); j++) {
-                if (fun.get(i).getSuit().compareTo(cache.get(j)) == 0) {
+                if (fun.get(i).getSuit().compareTo(cache.get(j).getSuit()) == 0) {
                     return true;
                 }
             }
