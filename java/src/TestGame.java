@@ -276,6 +276,8 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
+        match.setCache("черви");
+        playerOne.putFun(new Card("7", "черви"));
         handlerTossCard.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я подкинул картишек!");
     }

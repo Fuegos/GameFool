@@ -28,4 +28,8 @@ public class Player {
         return fun;
     }
 
+    public void putFun(PlayingCard playingCard) {
+        this.fun.add(playingCard);
+    }
+
 }

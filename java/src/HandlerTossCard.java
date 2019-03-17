@@ -11,7 +11,7 @@ public class HandlerTossCard extends HandlerSet {
 
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
-        if (activePlayer.getActiveCard() == null) {
+        if (activePlayer.getActiveCard() == null && match.checkCache(activePlayer.getFun())) {
             //todo подкинуть противнику карту, сравнить с кэшом
             match.setLogs("Игрок " + activePlayer.getName() + " подкинул картишек!");
         } else {

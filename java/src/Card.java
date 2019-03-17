@@ -10,4 +10,8 @@ public class Card implements PlayingCard {
     public String getPhrase() {
         return this.symbol + " " + suit;
     }
+
+    public String getSuit() {
+        return this.suit;
+    }
 }

@@ -52,4 +52,23 @@ public class Match {
     public ArrayList<String> getCache() {
         return this.cache;
     }
+
+    public void putCache(String suit) {
+        this.cache.add(suit);
+    }
+
+    public void clearCache() {
+        this.cache.clear();
+    }
+
+    public boolean checkCache(ArrayList<PlayingCard> fun) {
+        for (int i = 0; i < fun.size(); i++) {
+            for (int j = 0; j < this.cache.size(); j++) {
+                if (fun.get(i).getSuit().compareTo(cache.get(j)) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

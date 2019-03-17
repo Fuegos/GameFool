@@ -10,5 +10,9 @@ abstract class DecoratorCard implements PlayingCard {
         return playingCard.getPhrase();
     }
 
+    public String getSuit() {
+        return playingCard.getSuit();
+    }
+
 
 }
