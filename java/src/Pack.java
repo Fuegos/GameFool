@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Pack {
     private static Pack instanse;
-    private ArrayList<PlayingCard> card;
+    private ArrayList<PlayingCard> card = new ArrayList<PlayingCard>();
     private String logs;
     private String trump;
-    private ArrayList<PlayingCard> copyCard;
+    private ArrayList<PlayingCard> copyCard = new ArrayList<PlayingCard>();
 
     private Pack() {
 
@@ -13,7 +14,6 @@ public class Pack {
 
     public void setCard(ArrayList<PlayingCard> card) {
         instanse.card = card;
-        this.copyCard = new ArrayList<PlayingCard>();
         for (int i = 0; i < this.card.size(); i++) {
             this.copyCard.add(card.get(i));
         }
@@ -26,7 +26,6 @@ public class Pack {
     private Pack(ArrayList<PlayingCard> card, String trump) {
         this.card = card;
         this.trump = trump;
-        this.copyCard = new ArrayList<PlayingCard>();
         for (int i = 0; i < this.card.size(); i++) {
             this.copyCard.add(card.get(i));
         }
@@ -67,9 +66,10 @@ public class Pack {
     }
 
     public PlayingCard extractCard() {
-        //todo доработать метод извлечения карты из колоды, обработка пустой колоды, запись в логи)
+        //todo доработать обработку пустой колоды, запись в логи)
         if (card != null) {
-            PlayingCard card = instanse.card.get(0);
+            Random random = new Random();
+            PlayingCard card = instanse.card.get(random.nextInt(instanse.card.size()));
             instanse.card.remove(card);
             return card;
         }
@@ -81,6 +81,10 @@ public class Pack {
         for (int i = 0; i < instanse.copyCard.size(); i++) {
             instanse.card.add(copyCard.get(i));
         }
+    }
+
+    public void allExtractCard() {
+        instanse.card.clear();
     }
 
     public static void deletePack() {

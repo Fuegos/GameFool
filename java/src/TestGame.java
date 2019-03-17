@@ -237,5 +237,21 @@ public class TestGame {
         Assertions.assertNotNull(handlerPutCard);
     }
 
+    @Test
+    void playSetEmptyFanAndEmptyPack() {
+        Pack.deletePack();
+        HandlerSet handlerCheckWin = new HandlerCheckWin();
+        Match match = new Match();
+        match.createPack("36");
+        match.clearPack();
+        Player playerOne = new Player();
+        Player playerTwo = new Player();
+        handlerCheckWin.work(match, playerOne);
+
+        Assertions.assertEquals(((HandlerCheckWin) handlerCheckWin).logs, "Игрок выиграл!" );
+
+
+    }
+
 
 }

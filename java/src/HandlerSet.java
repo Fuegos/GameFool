@@ -9,5 +9,5 @@ abstract class HandlerSet {
 
     }
 
-    public abstract void work(Match match);
+    public abstract void work(Match match, Player player);
 }

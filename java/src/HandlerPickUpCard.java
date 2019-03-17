@@ -5,7 +5,7 @@ public class HandlerPickUpCard extends HandlerSet {
     }
 
     @Override
-    public void work(Match match) {
+    public void work(Match match, Player player) {
 
     }
 }
