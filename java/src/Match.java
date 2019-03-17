@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Match {
     private Pack pack;
-    private ArrayList<PlayingCard> cache = new ArrayList<PlayingCard>();
+    private ArrayList<String> cache = new ArrayList<String>();
     private Player winPlayer;
     private String logs;
 
@@ -45,7 +45,11 @@ public class Match {
         this.pack.allExtractCard();
     }
 
-    public ArrayList<PlayingCard> getCache() {
+    public void setCache(String suite) {
+        this.cache.add(suite);
+    }
+
+    public ArrayList<String> getCache() {
         return this.cache;
     }
 }

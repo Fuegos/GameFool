@@ -239,7 +239,6 @@ public class TestGame {
 
     @Test
     void playSetEmptyFanAndEmptyPack() {
-        Pack.deletePack();
         HandlerSet handlerCheckWin = new HandlerCheckWin();
         Match match = new Match();
         match.createPack("36");
@@ -253,7 +252,6 @@ public class TestGame {
 
     @Test
     void playSetPutCard() {
-        Pack.deletePack();
         HandlerSet handlerCheckWin = new HandlerCheckWin();
         HandlerSet handlerPutCard = new HandlerPutCard(handlerCheckWin);
         Match match = new Match();
@@ -264,6 +262,22 @@ public class TestGame {
         playerTwo.createFun(match.getPack());
         handlerPutCard.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я сделал ход!" );
+    }
+
+    @Test
+    void playSetTossCard() {
+        HandlerSet handlerTossCard = new HandlerTossCard();
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
+        HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
+
+        Match match = new Match();
+        match.createPack("36");
+        Player playerOne = new Player("Я");
+        playerOne.createFun(match.getPack());
+        Player playerTwo = new Player("Он");
+        playerTwo.createFun(match.getPack());
+        handlerTossCard.work(match, playerOne, playerTwo);
+        Assertions.assertEquals(match.getLogs(), "Игрок Я подкинул картишек!");
     }
 
 

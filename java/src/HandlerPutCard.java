@@ -9,7 +9,7 @@ public class HandlerPutCard extends HandlerSet {
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
         if (match.getCache().size() == 0 && activePlayer.getActiveCard() == null) {
-            //todo положить противнику карту
+            //todo положить противнику карту, добавить масть в кэш
             match.setLogs("Игрок " + activePlayer.getName() + " сделал ход!");
         } else {
             if (next != null) {

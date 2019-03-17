@@ -1,5 +1,13 @@
 public class HandlerCheckWin extends HandlerSet {
 
+    public HandlerCheckWin(HandlerSet handlerSet) {
+        super(handlerSet);
+    }
+
+    public HandlerCheckWin() {
+
+    }
+
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
         if (activePlayer.getActiveCard() == null && activePlayer.getFun().size() == 0 &&
