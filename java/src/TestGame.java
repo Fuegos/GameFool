@@ -174,5 +174,24 @@ public class TestGame {
         Assertions.assertNotNull(pack);
     }
 
+    @Test
+    void fullPack36() {
+        Pack.deletePack();
+        Director director = new Director();
+        BuilderPack builderPack36 = new BuilderPack36();
+
+        director.setBuilderPack(builderPack36);
+        director.collectPack();
+
+        Pack pack = director.getBuilderPack();
+
+        ArrayList<PlayingCard> card = pack.getCard();
+        for(int i = 0; i < pack.getCard().size(); i++) {
+            System.out.println(card.get(i).getPhrase());
+        }
+        Assertions.assertTrue(pack.getCard().size() == 36);
+
+    }
+
 
 }
