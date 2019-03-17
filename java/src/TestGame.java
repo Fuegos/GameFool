@@ -149,14 +149,14 @@ public class TestGame {
     @Test
     void collectPack36() {
         Pack.deletePack();
-        BuilderPack collect = new BuilderPack36();
+        BuilderPack collect = new BuilderPack56();
         Assertions.assertNotNull(collect);
     }
 
     @Test
-    void collectPack54() {
+    void collectPack56() {
         Pack.deletePack();
-        BuilderPack collect = new BuilderPack54();
+        BuilderPack collect = new BuilderPack56();
         Assertions.assertNotNull(collect);
     }
 
@@ -193,12 +193,12 @@ public class TestGame {
     }
 
     @Test
-    void buildPack54() {
+    void buildPack56() {
         Pack.deletePack();
         Director director = new Director();
-        BuilderPack builderPack54 = new BuilderPack54();
+        BuilderPack builderPack56 = new BuilderPack56();
 
-        director.setBuilderPack(builderPack54);
+        director.setBuilderPack(builderPack56);
         director.collectPack();
 
         Pack pack = director.getBuilderPack();
@@ -206,5 +206,22 @@ public class TestGame {
         Assertions.assertNotNull(pack);
     }
 
+    @Test
+    void fullPack56() {
+        Pack.deletePack();
+        Director director = new Director();
+        BuilderPack builderPack56 = new BuilderPack56();
+
+        director.setBuilderPack(builderPack56);
+        director.collectPack();
+
+        Pack pack = director.getBuilderPack();
+
+        ArrayList<PlayingCard> card = pack.getCard();
+        for(int i = 0; i < pack.getCard().size(); i++) {
+            System.out.println(card.get(i).getPhrase());
+        }
+        Assertions.assertEquals(pack.getCard().size(), 56, "Число карт = " + pack.getCard().size());
+    }
 
 }
