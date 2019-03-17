@@ -190,7 +190,20 @@ public class TestGame {
             System.out.println(card.get(i).getPhrase());
         }
         Assertions.assertTrue(pack.getCard().size() == 36);
+    }
 
+    @Test
+    void buildPack54() {
+        Pack.deletePack();
+        Director director = new Director();
+        BuilderPack builderPack54 = new BuilderPack54();
+
+        director.setBuilderPack(builderPack54);
+        director.collectPack();
+
+        Pack pack = director.getBuilderPack();
+
+        Assertions.assertNotNull(pack);
     }
 
 
