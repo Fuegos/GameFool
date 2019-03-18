@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BuilderPack36 extends BuilderPack {
 
@@ -39,8 +40,9 @@ public class BuilderPack36 extends BuilderPack {
 
     @Override
     public void buildTrump() {
-        //todo добавить случайный характер выбора козыря.
-        String trump = "черви";
-        result.setTrump(trump);
+        Info info = new Info();
+        Random random = new Random();
+        String[] suit = info.getSuit();
+        result.setTrump(suit[random.nextInt(suit.length)]);
     }
 }
