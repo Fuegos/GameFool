@@ -317,7 +317,7 @@ public class TestGame {
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
         playerOne.putActiveCard(new Card("7", "пик"));
-        playerOne.putFun(new Card("6", "пик"));
+        playerOne.setRunningCard(new Card("8", "пик"));
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я отбил карту!");
     }
