@@ -10,7 +10,8 @@ public class HandlerRepelCard extends HandlerSet {
 
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
-        if (activePlayer.getActiveCard() != null && activePlayer.checkRepel() && activePlayer.getRunningCard() != null) {
+        if (activePlayer.getActiveCard().getSuit() != "null" && activePlayer.checkRepel() &&
+                activePlayer.getRunningCard().getSuit() != "null" && activePlayer.getRunningCard().getSuit() != "отмена") {
             if (activePlayer.getRunningCard().getStrong(activePlayer.getActiveCard().getSuit()) >
                     activePlayer.getActiveCard().getStrong(activePlayer.getActiveCard().getSuit())) {
                 match.putCache(activePlayer.getActiveCard());

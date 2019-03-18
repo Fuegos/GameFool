@@ -58,17 +58,27 @@ public class Match {
     }
 
     public boolean checkCache(PlayingCard playingCard) {
-        if (playingCard != null) {
-            for (int j = 0; j < this.cache.size(); j++) {
-                if (playingCard.getSuit().compareTo(cache.get(j).getSuit()) == 0) {
-                    return true;
-                }
+        for (int j = 0; j < this.cache.size(); j++) {
+            if (playingCard.getSuit().compareTo(cache.get(j).getSuit()) == 0) {
+                return true;
             }
         }
         return false;
     }
 
+
     public void setWinPlayer(Player player) {
         this.winPlayer = player;
+    }
+
+    public boolean checkCacheFun(ArrayList<PlayingCard> fun) {
+        for (int i = 0; i < fun.size(); i++) {
+            for (int j = 0; j < this.cache.size(); j++) {
+                if (fun.get(i).getSuit().compareTo(cache.get(j).getSuit()) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

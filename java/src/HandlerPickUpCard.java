@@ -11,8 +11,8 @@ public class HandlerPickUpCard extends HandlerSet {
 
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
-        if (activePlayer.getActiveCard() != null && activePlayer.checkRepel() == false ||
-                activePlayer.getRunningCard() == null) {
+        if (activePlayer.getActiveCard().getSuit() != "null" && activePlayer.checkRepel() == false ||
+                activePlayer.getRunningCard().getSuit() == "отмена") {
             for (int i = 0; i < match.getCache().size(); i++) {
                 activePlayer.putFun(match.getCache().get(i));
             }

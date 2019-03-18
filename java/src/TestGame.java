@@ -343,5 +343,36 @@ public class TestGame {
         Assertions.assertEquals(match.getLogs(), "Игрок Я взял все карты!");
     }
 
+    @Test
+    void playSetChangeCard() {
+        HandlerSet handlerChangeCard = new HandlerChangeCard();
+        HandlerSet handlerPickUpCard = new HandlerPickUpCard(handlerChangeCard);
+        HandlerSet handlerRepelCard = new HandlerRepelCard(handlerPickUpCard);
+        HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
+        HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
+        HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
+
+        Match match = new Match();
+        match.createPack("36");
+        Player playerOne = new Player("Я");
+        playerOne.createFun(match.getPack());
+        Player playerTwo = new Player("Он");
+        playerTwo.createFun(match.getPack());
+        match.putCache((new Card("6", "пик")));
+        playerOne.putFun((new Card("7", "пик")));
+        //playerOne.putActiveCard((new Card("6", "пик")));
+        match.getPack().setTrump("пик");
+        handlerCheckWin.work(match, playerOne, playerTwo);
+        Assertions.assertEquals(match.getLogs(), "Игрок Я выбрал карту!");
+    }
+
+    @Test
+    void adapterCardCancel() {
+        Cancel cancel = new Cancel("отмена");
+        Adapter adapter = new Adapter(cancel);
+        Assertions.assertEquals(adapter.getPhrase(), "отмена");
+    }
+
 
 }

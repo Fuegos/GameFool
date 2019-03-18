@@ -27,6 +27,11 @@ public class Player {
     }
 
     public PlayingCard getRunningCard() {
+        if (this.runningCard == null) {
+            Cancel cancel = new Cancel("null");
+            Adapter adapter = new Adapter(cancel);
+            return adapter;
+        }
         return this.runningCard;
     }
 
@@ -35,6 +40,11 @@ public class Player {
     }
 
     public PlayingCard getActiveCard() {
+        if (this.activeCard == null) {
+            Cancel cancel = new Cancel("null");
+            Adapter adapter = new Adapter(cancel);
+            return adapter;
+        }
         return this.activeCard;
     }
 
@@ -44,6 +54,12 @@ public class Player {
 
     public void putFun(PlayingCard playingCard) {
         this.fun.add(playingCard);
+    }
+
+    public PlayingCard extractFun(int number) {
+        PlayingCard playingCard = this.fun.get(number - 1);
+        this.fun.remove(playingCard);
+        return playingCard;
     }
 
     public void putActiveCard(PlayingCard playingCard) {
