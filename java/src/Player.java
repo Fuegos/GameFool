@@ -58,4 +58,8 @@ public class Player {
     public boolean getWontToBeat() {
         return this.wontToBeat;
     }
+
+    public void addPoint() {
+        this.countWins++;
+    }
 }

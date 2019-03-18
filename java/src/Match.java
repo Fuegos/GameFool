@@ -67,4 +67,8 @@ public class Match {
         }
         return false;
     }
+
+    public void setWinPlayer(Player player) {
+        this.winPlayer = player;
+    }
 }
