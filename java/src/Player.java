@@ -7,6 +7,7 @@ public class Player {
     private int countWins = 0;
     private boolean wontToBeat = true;
     private PlayingCard runningCard;
+    private boolean active = false;
 
     public Player(String name) {
         this.name = name;
@@ -74,5 +75,17 @@ public class Player {
 
     public void addPoint() {
         this.countWins++;
+    }
+
+    public void activeOn() {
+        this.active = true;
+    }
+
+    public void activeOff() {
+        this.active = false;
+    }
+
+    public boolean getActive() {
+        return this.active;
     }
 }
