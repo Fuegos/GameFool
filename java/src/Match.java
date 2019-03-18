@@ -57,10 +57,10 @@ public class Match {
         this.cache.clear();
     }
 
-    public boolean checkCache(ArrayList<PlayingCard> fun) {
-        for (int i = 0; i < fun.size(); i++) {
+    public boolean checkCache(PlayingCard playingCard) {
+        if (playingCard != null) {
             for (int j = 0; j < this.cache.size(); j++) {
-                if (fun.get(i).getSuit().compareTo(cache.get(j).getSuit()) == 0) {
+                if (playingCard.getSuit().compareTo(cache.get(j).getSuit()) == 0) {
                     return true;
                 }
             }
