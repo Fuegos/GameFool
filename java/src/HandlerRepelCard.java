@@ -14,14 +14,19 @@ public class HandlerRepelCard extends HandlerSet {
                 activePlayer.getRunningCard().getSuit() != "null" && activePlayer.getRunningCard().getSuit() != "отмена") {
             if (activePlayer.getRunningCard().getStrong(activePlayer.getActiveCard().getSuit()) >
                     activePlayer.getActiveCard().getStrong(activePlayer.getActiveCard().getSuit())) {
-                match.putCache(activePlayer.getActiveCard());
-                activePlayer.setActiveCard(null);
-                activePlayer.setRunningCard(null);
+                match.putCache(activePlayer.getRunningCard());
+                Cancel cancel = new Cancel("null");
+                Adapter adapter = new Adapter(cancel);
+                activePlayer.setActiveCard(adapter);
+                activePlayer.setRunningCard(adapter);
+                match.setActivePlayer(enemyPlayer);
                 match.setLogs("Игрок " + activePlayer.getName() + " отбил карту!");
             }
             else {
                 match.setLogs("Игрок " + activePlayer.getName() + " выбрал неверную карту!");
-                activePlayer.setRunningCard(null);
+                Cancel cancel = new Cancel("null");
+                Adapter adapter = new Adapter(cancel);
+                activePlayer.setRunningCard(adapter);
             }
 
         } else {

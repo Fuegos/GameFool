@@ -17,14 +17,15 @@ public class HandlerPickUpCard extends HandlerSet {
                 activePlayer.putFun(match.getCache().get(i));
             }
             match.clearCache();
-            activePlayer.putFun(activePlayer.getActiveCard());
-            activePlayer.setActiveCard(null);
+            Cancel cancel = new Cancel("null");
+            Adapter adapter = new Adapter(cancel);
+            activePlayer.setActiveCard(adapter);
+            match.setActivePlayer(enemyPlayer);
             match.setLogs("Игрок " + activePlayer.getName() + " взял все карты!");
         } else {
             if (next != null) {
                 next.work(match, activePlayer, enemyPlayer);
             }
         }
-
     }
 }

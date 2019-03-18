@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class TestGame {
 
+
     @Test
     void createCard() {
         Card card = new Card("4", "черви");
@@ -408,6 +409,89 @@ public class TestGame {
         HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
         HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
 
+        Match match = new Match();
+        match.createPack("36");
+        match.getPack().setTrump("черви");
+        match.getPack().allExtractCard();
+
+        Player playerOne = new Player("Я");
+        Player playerTwo = new Player("Он");
+
+        playerOne.putFun(new Card("6", "черви"));
+        playerOne.putFun(new Card("9", "черви"));
+
+        playerTwo.putFun(new Card("7", "черви"));
+        playerTwo.putFun(new Card("8", "черви"));
+
+
+        Observer systemPutCardIntoFun = new SystemPutCardIntoFun();
+        match.attach(systemPutCardIntoFun);
+        match.setActive(playerOne.getName());
+        match.setActivePlayer(playerOne);
+
+        System.out.println(playerOne.printFun());
+        System.out.println(playerTwo.printFun());
+
+        //Положил карту 1
+        playerOne.setRunningCard(playerOne.extractFun(1));
+
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+        System.out.println(match.getLogs());
+
+
+        System.out.println(playerOne.printFun());
+        System.out.println(playerTwo.printFun());
+
+        //Отбил карту 2
+        playerTwo.setRunningCard(playerTwo.extractFun(1));
+
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+        System.out.println(match.getLogs());
+
+
+        System.out.println(playerOne.printFun());
+        System.out.println(playerTwo.printFun());
+
+        //Подкинул 1
+        playerOne.setRunningCard(playerOne.extractFun(1));
+
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+        System.out.println(match.getLogs());
+
+
+        System.out.println(playerOne.printFun());
+        System.out.println(playerTwo.printFun());
+
+        //Взял 2
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+
+        System.out.println(match.getLogs());
+
+
+        System.out.println(playerOne.printFun());
+        System.out.println(playerTwo.printFun());
+
+        //Победа 1
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+        System.out.println(match.getLogs());
+
+
+        Assertions.assertEquals(match.getWinPlayer().getName(), "Я");
     }
 
 

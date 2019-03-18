@@ -6,6 +6,7 @@ public class Match extends Subject{
     private Player winPlayer;
     private String logs;
     private String active;
+    private String activePlayer;
 
     public void createPack(String type) {
         if (type.compareTo("36") == 0) {
@@ -72,6 +73,10 @@ public class Match extends Subject{
         this.winPlayer = player;
     }
 
+    public Player getWinPlayer() {
+        return this.winPlayer;
+    }
+
     public boolean checkCacheFun(ArrayList<PlayingCard> fun) {
         for (int i = 0; i < fun.size(); i++) {
             for (int j = 0; j < this.cache.size(); j++) {
@@ -85,8 +90,9 @@ public class Match extends Subject{
 
     @Override
     public void natify(Player activePlayer, Player enemyPlayer) {
-        observer.update(activePlayer, enemyPlayer, this.pack);
-
+        for(int i = 0; i < observer.size(); i++) {
+            observer.get(i).update(activePlayer, enemyPlayer, this.pack);
+        }
     }
 
     public void setState(Player activePlayer, Player enemyPlayer) {
@@ -96,5 +102,17 @@ public class Match extends Subject{
 
     public String getActive() {
         return this.active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
+    public void setActivePlayer(Player player) {
+        this.activePlayer = player.getName();
+    }
+
+    public String getActivePlayer() {
+        return this.activePlayer;
     }
 }

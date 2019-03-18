@@ -85,4 +85,13 @@ public class Player {
             this.fun.add(pack.extractCard());
         }
     }
+
+    public String printFun() {
+        String str = "***Веер игрока " + this.name + ": ";
+        for(int i = 0; i < this.fun.size(); i++) {
+            str += fun.get(i).getPhrase() + " | ";
+        }
+        return str;
+    }
+
 }

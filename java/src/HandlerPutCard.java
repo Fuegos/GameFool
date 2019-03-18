@@ -12,7 +12,10 @@ public class HandlerPutCard extends HandlerSet {
                 activePlayer.getRunningCard().getSuit() != "null" && enemyPlayer.getActiveCard().getSuit() == "null") {
             enemyPlayer.setActiveCard(activePlayer.getRunningCard());
             match.putCache(activePlayer.getRunningCard());
-            activePlayer.setRunningCard(null);
+            Cancel cancel = new Cancel("null");
+            Adapter adapter = new Adapter(cancel);
+            activePlayer.setRunningCard(adapter);
+            match.setActivePlayer(enemyPlayer);
             match.setLogs("Игрок " + activePlayer.getName() + " сделал ход!");
         } else {
             if (next != null) {

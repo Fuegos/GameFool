@@ -13,8 +13,11 @@ public class HandlerCloseSet extends HandlerSet {
         if (activePlayer.getActiveCard().getSuit() == "null" && match.checkCache(activePlayer.getRunningCard()) == false &&
                 enemyPlayer.getActiveCard().getSuit() == "null" && match.checkCacheFun(activePlayer.getFun()) == false ||
                 activePlayer.getRunningCard().getSuit() == "отмена") {
-            activePlayer.setRunningCard(null);
+            Cancel cancel = new Cancel("null");
+            Adapter adapter = new Adapter(cancel);
+            activePlayer.setRunningCard(adapter);
             match.setState(enemyPlayer, activePlayer);
+            match.setActivePlayer(enemyPlayer);
             match.setLogs("Игрок " + enemyPlayer.getName() + " отбил карты!");
         } else {
             if (next != null) {
