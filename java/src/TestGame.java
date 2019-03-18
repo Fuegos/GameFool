@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.logging.Handler;
 
 public class TestGame {
 
@@ -298,6 +297,8 @@ public class TestGame {
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
         match.putCache(new Card("7","грязи"));
+        Observer systemPutCardIntoFun = new SystemPutCardIntoFun();
+        match.attach(systemPutCardIntoFun);
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Он отбил карты!");
     }
@@ -361,7 +362,6 @@ public class TestGame {
         playerTwo.createFun(match.getPack());
         match.putCache((new Card("6", "пик")));
         playerOne.putFun((new Card("7", "пик")));
-        //playerOne.putActiveCard((new Card("6", "пик")));
         match.getPack().setTrump("пик");
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я выбрал карту!");
@@ -373,6 +373,43 @@ public class TestGame {
         Adapter adapter = new Adapter(cancel);
         Assertions.assertEquals(adapter.getPhrase(), "отмена");
     }
+
+    @Test
+    void createObserver() {
+        HandlerSet handlerChangeCard = new HandlerChangeCard();
+        HandlerSet handlerPickUpCard = new HandlerPickUpCard(handlerChangeCard);
+        HandlerSet handlerRepelCard = new HandlerRepelCard(handlerPickUpCard);
+        HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
+        HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
+        HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
+
+        Match match = new Match();
+        match.createPack("36");
+        Player playerOne = new Player("Я");
+        playerOne.createFun(match.getPack());
+        Player playerTwo = new Player("Он");
+        playerTwo.createFun(match.getPack());
+        match.putCache(new Card("7","грязи"));
+
+        Observer systemPutCardIntoFun = new SystemPutCardIntoFun();
+        match.attach(systemPutCardIntoFun);
+        handlerCheckWin.work(match, playerOne, playerTwo);
+        Assertions.assertEquals(match.getActive(), "Он");
+    }
+
+    @Test
+    void playMatch() {
+        HandlerSet handlerChangeCard = new HandlerChangeCard();
+        HandlerSet handlerPickUpCard = new HandlerPickUpCard(handlerChangeCard);
+        HandlerSet handlerRepelCard = new HandlerRepelCard(handlerPickUpCard);
+        HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
+        HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
+        HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
+
+    }
+
 
 
 }

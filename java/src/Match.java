@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
-public class Match {
+public class Match extends Subject{
     private Pack pack;
     private ArrayList<PlayingCard> cache = new ArrayList<PlayingCard>();
     private Player winPlayer;
     private String logs;
+    private String active;
 
     public void createPack(String type) {
         if (type.compareTo("36") == 0) {
@@ -80,5 +81,20 @@ public class Match {
             }
         }
         return false;
+    }
+
+    @Override
+    public void natify(Player activePlayer, Player enemyPlayer) {
+        observer.update(activePlayer, enemyPlayer, this.pack);
+
+    }
+
+    public void setState(Player activePlayer, Player enemyPlayer) {
+        this.active = activePlayer.getName();
+        natify(activePlayer, enemyPlayer);
+    }
+
+    public String getActive() {
+        return this.active;
     }
 }
