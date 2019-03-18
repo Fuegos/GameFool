@@ -10,4 +10,9 @@ public class Face extends DecoratorCard {
     public String getPhrase() {
         return super.getPhrase() + " (" + nomen + ")";
     }
+
+    @Override
+    public int getStrong(String suit) {
+        return super.getStrong(suit);
+    }
 }

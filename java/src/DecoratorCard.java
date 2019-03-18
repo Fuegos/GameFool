@@ -14,5 +14,10 @@ abstract class DecoratorCard implements PlayingCard {
         return playingCard.getSuit();
     }
 
+    @Override
+    public int getStrong(String suit) {
+        return playingCard.getStrong(suit);
+    }
+
 
 }

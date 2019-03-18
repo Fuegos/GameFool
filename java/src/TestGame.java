@@ -315,8 +315,30 @@ public class TestGame {
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
         playerOne.putActiveCard(new Card("7", "пик"));
+        playerOne.putFun(new Card("6", "пик"));
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я отбил карту!");
+    }
+
+    @Test
+    void playSetPickUpCard() {
+        HandlerSet handlerPickUpCard = new HandlerPickUpCard();
+        HandlerSet handlerRepelCard = new HandlerRepelCard(handlerPickUpCard);
+        HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
+        HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
+        HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
+
+        Match match = new Match();
+        match.createPack("36");
+        Player playerOne = new Player("Я");
+        playerOne.createFun(match.getPack());
+        Player playerTwo = new Player("Он");
+        playerTwo.createFun(match.getPack());
+        playerOne.putActiveCard(new Trump(new Face(new Card("туз", "пик"), "T"), "козырь"));
+        match.getPack().setTrump("пик");
+        handlerCheckWin.work(match, playerOne, playerTwo);
+        Assertions.assertEquals(match.getLogs(), "Игрок Я взял все карты!");
     }
 
 

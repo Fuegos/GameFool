@@ -39,7 +39,12 @@ public class Player {
 
     public boolean checkRepel() {
         //todo доработать
-        return true;
+        for (int i = 0; i < this.fun.size(); i++) {
+            if (fun.get(i).getStrong(activeCard.getSuit()) > activeCard.getStrong(activeCard.getSuit())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setWontToBeat() {
