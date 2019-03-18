@@ -6,6 +6,7 @@ public class Player {
     private PlayingCard activeCard;
     private int countWins = 0;
     private boolean wontToBeat = true;
+    private PlayingCard runningCard;
 
     public Player(String name) {
         this.name = name;
@@ -19,6 +20,18 @@ public class Player {
         for(int i = 0; i < 6; i++) {
             fun.add(pack.extractCard());
         }
+    }
+
+    public void setRunningCard(PlayingCard runningCard) {
+        this.runningCard = runningCard;
+    }
+
+    public PlayingCard getRunningCard() {
+        return this.runningCard;
+    }
+
+    public  void setActiveCard(PlayingCard playingCard) {
+        this.activeCard = playingCard;
     }
 
     public PlayingCard getActiveCard() {

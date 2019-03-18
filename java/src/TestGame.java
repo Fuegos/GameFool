@@ -260,6 +260,7 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
+        playerOne.setRunningCard(new Card("7","черви"));
         handlerPutCard.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я сделал ход!" );
     }
