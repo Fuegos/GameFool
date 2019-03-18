@@ -5,7 +5,6 @@ public class Player {
     private String name;
     private PlayingCard activeCard;
     private int countWins = 0;
-    private boolean wontToBeat = true;
     private PlayingCard runningCard;
     private boolean active = false;
 
@@ -52,7 +51,6 @@ public class Player {
     }
 
     public boolean checkRepel() {
-        //todo доработать
         for (int i = 0; i < this.fun.size(); i++) {
             if (fun.get(i).getStrong(activeCard.getSuit()) > activeCard.getStrong(activeCard.getSuit())) {
                 return true;
@@ -61,17 +59,6 @@ public class Player {
         return false;
     }
 
-    public void setWontToBeat() {
-        this.wontToBeat = true;
-    }
-
-    public void setNotWontToBeat() {
-        this.wontToBeat = false;
-    }
-
-    public boolean getWontToBeat() {
-        return this.wontToBeat;
-    }
 
     public void addPoint() {
         this.countWins++;
