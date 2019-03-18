@@ -12,8 +12,13 @@ public class HandlerPickUpCard extends HandlerSet {
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
         if (activePlayer.getActiveCard() != null && activePlayer.checkRepel() == false ||
-                activePlayer.getWontToBeat() == false) {
-            //todo взять карты стереть активные
+                activePlayer.getRunningCard() == null) {
+            for (int i = 0; i < match.getCache().size(); i++) {
+                activePlayer.putFun(match.getCache().get(i));
+            }
+            match.clearCache();
+            activePlayer.putFun(activePlayer.getActiveCard());
+            activePlayer.setActiveCard(null);
             match.setLogs("Игрок " + activePlayer.getName() + " взял все карты!");
         } else {
             if (next != null) {
