@@ -10,26 +10,24 @@ public class HandlerRepelCard extends HandlerSet {
 
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
-        if (activePlayer.getActiveCard().getSuit() != "null" && activePlayer.checkRepel() &&
-                activePlayer.getRunningCard().getSuit() != "null" && activePlayer.getRunningCard().getSuit() != "отмена") {
-            if (activePlayer.getRunningCard().getStrong(activePlayer.getActiveCard().getSuit()) >
-                    activePlayer.getActiveCard().getStrong(activePlayer.getActiveCard().getSuit())) {
+        if (enemyPlayer.getRunningCard().getSuit() != "null" &&
+                activePlayer.getActiveCard().getSuit() != "отмена") {
+            if (activePlayer.getActiveCard().getStrong(enemyPlayer.getRunningCard().getSuit()) >
+                    enemyPlayer.getRunningCard().getStrong(enemyPlayer.getRunningCard().getSuit())) {
                 match.putCache(activePlayer.getRunningCard());
-                Cancel cancel = new Cancel("null");
-                Adapter adapter = new Adapter(cancel);
-                activePlayer.setActiveCard(adapter);
-                activePlayer.setRunningCard(adapter);
+                match.putCache(enemyPlayer.getRunningCard());
+                activePlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
+                enemyPlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
                 match.setActivePlayer(enemyPlayer);
                 match.setLogs("Игрок " + activePlayer.getName() + " отбил карту!");
             }
             else {
                 match.setLogs("Игрок " + activePlayer.getName() + " выбрал неверную карту!");
-                Cancel cancel = new Cancel("null");
-                Adapter adapter = new Adapter(cancel);
-                activePlayer.setRunningCard(adapter);
+                activePlayer.putFun(activePlayer.getActiveCard());
+                activePlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
             }
-
-        } else {
+        }
+        else {
             if (next != null) {
                 next.work(match, activePlayer, enemyPlayer);
             }

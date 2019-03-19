@@ -16,6 +16,12 @@ public class Adapter implements PlayingCard {
     }
 
     @Override
+    public String getSymbol() {
+        return "not";
+    }
+
+
+    @Override
     public int getStrong(String suit) {
         return 0;
     }

@@ -56,7 +56,7 @@ public class Player {
     }
 
     public PlayingCard extractFun(int number) {
-        PlayingCard playingCard = this.fun.get(number - 1);
+        PlayingCard playingCard = this.fun.get(number);
         this.fun.remove(playingCard);
         return playingCard;
     }
@@ -65,9 +65,9 @@ public class Player {
         this.activeCard = playingCard;
     }
 
-    public boolean checkRepel() {
+    public boolean checkRepel(PlayingCard card) {
         for (int i = 0; i < this.fun.size(); i++) {
-            if (fun.get(i).getStrong(activeCard.getSuit()) > activeCard.getStrong(activeCard.getSuit())) {
+            if (fun.get(i).getStrong(activeCard.getSuit()) > card.getStrong(activeCard.getSuit())) {
                 return true;
             }
         }
@@ -81,7 +81,7 @@ public class Player {
 
 
     public void replenishFun(Pack pack) {
-        while (this.fun.size() != 6 && pack.getCard().size() != 0) {
+        while (this.fun.size() < 6 && pack.getCard().size() != 0) {
             this.fun.add(pack.extractCard());
         }
     }

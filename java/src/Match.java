@@ -7,6 +7,7 @@ public class Match extends Subject{
     private String logs;
     private String active;
     private String activePlayer;
+    private boolean waitInput = false;
 
     public void createPack(String type) {
         if (type.compareTo("36") == 0) {
@@ -61,7 +62,7 @@ public class Match extends Subject{
 
     public boolean checkCache(PlayingCard playingCard) {
         for (int j = 0; j < this.cache.size(); j++) {
-            if (playingCard.getSuit().compareTo(cache.get(j).getSuit()) == 0) {
+            if (playingCard.getSymbol().compareTo(cache.get(j).getSymbol()) == 0) {
                 return true;
             }
         }
@@ -80,7 +81,7 @@ public class Match extends Subject{
     public boolean checkCacheFun(ArrayList<PlayingCard> fun) {
         for (int i = 0; i < fun.size(); i++) {
             for (int j = 0; j < this.cache.size(); j++) {
-                if (fun.get(i).getSuit().compareTo(cache.get(j).getSuit()) == 0) {
+                if (fun.get(i).getSymbol().compareTo(cache.get(j).getSymbol()) == 0) {
                     return true;
                 }
             }
@@ -114,5 +115,17 @@ public class Match extends Subject{
 
     public String getActivePlayer() {
         return this.activePlayer;
+    }
+
+    public void setWaitInputTrue() {
+        this.waitInput = true;
+    }
+
+    public void setWaitInputFalse() {
+        this.waitInput = false;
+    }
+
+    public boolean getWaitInput() {
+        return this.waitInput;
     }
 }

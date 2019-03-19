@@ -11,22 +11,30 @@ public class HandlerTossCard extends HandlerSet {
 
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
-        if (activePlayer.getActiveCard().getSuit() == "null" && match.checkCache(activePlayer.getRunningCard()) &&
-                enemyPlayer.getActiveCard().getSuit() == "null" && activePlayer.getRunningCard().getSuit() != "отмена") {
-            enemyPlayer.setActiveCard(activePlayer.getRunningCard());
-            match.putCache(activePlayer.getRunningCard());
-            Cancel cancel = new Cancel("null");
-            Adapter adapter = new Adapter(cancel);
-            activePlayer.setRunningCard(adapter);
-            match.setActivePlayer(enemyPlayer);
-            match.setLogs("Игрок " + activePlayer.getName() + " подкинул картишек!");
-        } else {
-            if (activePlayer.getActiveCard().getSuit() == "null" &&  activePlayer.getRunningCard().getSuit() == "null" && activePlayer.getRunningCard().getSuit() != "отмена") {
-                match.setLogs("Игрок " + activePlayer.getName() + " выбрал неверную карту!");
-                Cancel cancel = new Cancel("null");
-                Adapter adapter = new Adapter(cancel);
-                activePlayer.setRunningCard(adapter);
+        if (match.getCache().size() != 0 && activePlayer.getRunningCard().getSuit() == "null" &&
+                enemyPlayer.getRunningCard().getSuit() == "null") {
+
+            if (match.checkCache(activePlayer.getActiveCard()) == false) {
+                match.setLogs("Игрок " + activePlayer.getName() + " выбрал недостойную карту!");
+                activePlayer.putFun(activePlayer.getActiveCard());
+                activePlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
             }
+            else if(activePlayer.getActiveCard().getSuit() == "отмена") {
+                activePlayer.setRunningCard(activePlayer.getActiveCard());
+                match.setActivePlayer(enemyPlayer);
+                match.setState(enemyPlayer, activePlayer);
+                activePlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
+                enemyPlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
+                match.clearCache();
+                match.setLogs("Игроку " + activePlayer.getName() + " нечего подкидывать!");
+            }
+            else {
+                activePlayer.setRunningCard(activePlayer.getActiveCard());
+                match.setActivePlayer(enemyPlayer);
+                match.setLogs("Игрок " + activePlayer.getName() + " подкинул картишек!");
+            }
+
+        } else {
             if (next != null) {
                 next.work(match, activePlayer, enemyPlayer);
             }

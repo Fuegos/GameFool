@@ -11,18 +11,20 @@ public class HandlerPickUpCard extends HandlerSet {
 
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
-        if (activePlayer.getActiveCard().getSuit() != "null" && activePlayer.checkRepel() == false ||
-                activePlayer.getRunningCard().getSuit() == "отмена") {
+        if (enemyPlayer.getRunningCard().getSuit() != "null" && activePlayer.checkRepel(enemyPlayer.getRunningCard()) ||
+            activePlayer.getActiveCard().getSuit() == "отмена") {
             for (int i = 0; i < match.getCache().size(); i++) {
                 activePlayer.putFun(match.getCache().get(i));
             }
+            activePlayer.putFun(enemyPlayer.getRunningCard());
+            activePlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
+            enemyPlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
             match.clearCache();
-            Cancel cancel = new Cancel("null");
-            Adapter adapter = new Adapter(cancel);
-            activePlayer.setActiveCard(adapter);
             match.setActivePlayer(enemyPlayer);
+            match.setState(enemyPlayer, activePlayer);
             match.setLogs("Игрок " + activePlayer.getName() + " взял все карты!");
-        } else {
+        }
+        else {
             if (next != null) {
                 next.work(match, activePlayer, enemyPlayer);
             }

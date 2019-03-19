@@ -16,6 +16,11 @@ public class Card implements PlayingCard {
     }
 
     @Override
+    public String getSymbol() {
+        return this.symbol;
+    }
+
+    @Override
     public int getStrong(String suit) {
         int strong = 0;
         Info info = new Info();

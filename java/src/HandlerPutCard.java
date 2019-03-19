@@ -8,15 +8,17 @@ public class HandlerPutCard extends HandlerSet {
 
     @Override
     public void work(Match match, Player activePlayer, Player enemyPlayer) {
-        if (match.getCache().size() == 0 && activePlayer.getActiveCard().getSuit() == "null" &&
-                activePlayer.getRunningCard().getSuit() != "null" && enemyPlayer.getActiveCard().getSuit() == "null") {
-            enemyPlayer.setActiveCard(activePlayer.getRunningCard());
-            match.putCache(activePlayer.getRunningCard());
-            Cancel cancel = new Cancel("null");
-            Adapter adapter = new Adapter(cancel);
-            activePlayer.setRunningCard(adapter);
-            match.setActivePlayer(enemyPlayer);
-            match.setLogs("Игрок " + activePlayer.getName() + " сделал ход!");
+        if (match.getCache().size() == 0 && activePlayer.getRunningCard().getSuit() == "null" &&
+                enemyPlayer.getRunningCard().getSuit() == "null") {
+            if(activePlayer.getActiveCard().getSuit() == "отмена") {
+                activePlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
+                match.setLogs("Игроку " + activePlayer.getName() + " необходимо выбрать карту!");
+            }
+            else {
+                activePlayer.setRunningCard(activePlayer.getActiveCard());
+                match.setActivePlayer(enemyPlayer);
+                match.setLogs("Игрок " + activePlayer.getName() + " сделал ход!");
+            }
         } else {
             if (next != null) {
                 next.work(match, activePlayer, enemyPlayer);

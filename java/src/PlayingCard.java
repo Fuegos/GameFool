@@ -4,5 +4,7 @@ public interface PlayingCard {
 
     String getSuit();
 
+    String getSymbol();
+
     int getStrong(String suit);
 }
