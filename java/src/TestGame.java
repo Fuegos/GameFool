@@ -260,7 +260,7 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
-        playerOne.setRunningCard(new Card("7","черви"));
+        playerOne.setActiveCard(new Card("7","черви"));
         handlerPutCard.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я сделал ход!" );
     }
@@ -277,9 +277,8 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
-        match.putCache(new Card("7","черви"));
-        playerOne.putFun(new Card("7", "черви"));
-        playerOne.setRunningCard(new Card("8","черви"));
+        match.putCache(new Card("7", "пик"));
+        playerOne.setActiveCard(new Card("7","черви"));
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я подкинул картишек!");
     }
@@ -297,11 +296,11 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
-        match.putCache(new Card("7","грязи"));
+        playerTwo.setRunningCard(new FactoryCardExotic().createCard("отмена"));
         Observer systemPutCardIntoFun = new SystemPutCardIntoFun();
         match.attach(systemPutCardIntoFun);
         handlerCheckWin.work(match, playerOne, playerTwo);
-        Assertions.assertEquals(match.getLogs(), "Игрок Он отбил карты!");
+        Assertions.assertEquals(match.getLogs(), "Игрок Я отбил карты!");
     }
 
     @Test
@@ -318,8 +317,8 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
-        playerOne.putActiveCard(new Card("7", "пик"));
-        playerOne.setRunningCard(new Card("8", "пик"));
+        playerTwo.setRunningCard(new Card("7", "пик"));
+        playerOne.setActiveCard(new Card("8", "пик"));
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я отбил карту!");
     }
@@ -339,34 +338,13 @@ public class TestGame {
         playerOne.createFun(match.getPack());
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
-        playerOne.putActiveCard(new Trump(new Face(new Card("туз", "пик"), "T"), "козырь"));
+        playerTwo.setRunningCard(new Trump(new Face(new Card("туз", "пик"), "T"), "козырь"));
+        playerOne.setActiveCard(new FactoryCardExotic().createCard("отмена"));
         match.getPack().setTrump("пик");
         handlerCheckWin.work(match, playerOne, playerTwo);
         Assertions.assertEquals(match.getLogs(), "Игрок Я взял все карты!");
     }
 
-    @Test
-    void playSetChangeCard() {
-        HandlerSet handlerChangeCard = new HandlerChangeCard();
-        HandlerSet handlerPickUpCard = new HandlerPickUpCard(handlerChangeCard);
-        HandlerSet handlerRepelCard = new HandlerRepelCard(handlerPickUpCard);
-        HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
-        HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
-        HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
-        HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
-
-        Match match = new Match();
-        match.createPack("36");
-        Player playerOne = new Player("Я");
-        playerOne.createFun(match.getPack());
-        Player playerTwo = new Player("Он");
-        playerTwo.createFun(match.getPack());
-        match.putCache((new Card("6", "пик")));
-        playerOne.putFun((new Card("7", "пик")));
-        match.getPack().setTrump("пик");
-        handlerCheckWin.work(match, playerOne, playerTwo);
-        Assertions.assertEquals(match.getLogs(), "Игрок Я выбрал карту!");
-    }
 
     @Test
     void adapterCardCancel() {
@@ -377,8 +355,7 @@ public class TestGame {
 
     @Test
     void createObserver() {
-        HandlerSet handlerChangeCard = new HandlerChangeCard();
-        HandlerSet handlerPickUpCard = new HandlerPickUpCard(handlerChangeCard);
+        HandlerSet handlerPickUpCard = new HandlerPickUpCard();
         HandlerSet handlerRepelCard = new HandlerRepelCard(handlerPickUpCard);
         HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
         HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
@@ -392,6 +369,7 @@ public class TestGame {
         Player playerTwo = new Player("Он");
         playerTwo.createFun(match.getPack());
         match.putCache(new Card("7","грязи"));
+        playerTwo.setRunningCard(new FactoryCardExotic().createCard("отмена"));
 
         Observer systemPutCardIntoFun = new SystemPutCardIntoFun();
         match.attach(systemPutCardIntoFun);
@@ -401,8 +379,7 @@ public class TestGame {
 
     @Test
     void playMatch() {
-        HandlerSet handlerChangeCard = new HandlerChangeCard();
-        HandlerSet handlerPickUpCard = new HandlerPickUpCard(handlerChangeCard);
+        HandlerSet handlerPickUpCard = new HandlerPickUpCard();
         HandlerSet handlerRepelCard = new HandlerRepelCard(handlerPickUpCard);
         HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
         HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
@@ -433,7 +410,7 @@ public class TestGame {
         System.out.println(playerTwo.printFun());
 
         //Положил карту 1
-        playerOne.setRunningCard(playerOne.extractFun(1));
+        playerOne.setActiveCard(playerOne.extractFun(1));
 
         if (match.getActivePlayer() == playerOne.getName())
             handlerCheckWin.work(match, playerOne, playerTwo);
@@ -446,7 +423,7 @@ public class TestGame {
         System.out.println(playerTwo.printFun());
 
         //Отбил карту 2
-        playerTwo.setRunningCard(playerTwo.extractFun(1));
+        playerTwo.setActiveCard(playerTwo.extractFun(1));
 
         if (match.getActivePlayer() == playerOne.getName())
             handlerCheckWin.work(match, playerOne, playerTwo);
@@ -459,7 +436,7 @@ public class TestGame {
         System.out.println(playerTwo.printFun());
 
         //Подкинул 1
-        playerOne.setRunningCard(playerOne.extractFun(1));
+        playerOne.setActiveCard(playerOne.extractFun(1));
 
         if (match.getActivePlayer() == playerOne.getName())
             handlerCheckWin.work(match, playerOne, playerTwo);
@@ -494,6 +471,9 @@ public class TestGame {
         Assertions.assertEquals(match.getWinPlayer().getName(), "Я");
     }
 
+    @Test
+    void tossCard() {
 
 
+    }
 }

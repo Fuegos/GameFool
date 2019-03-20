@@ -15,7 +15,7 @@ public class HandlerCloseSet extends HandlerSet {
             activePlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
             enemyPlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
             match.clearCache();
-            match.setLogs("Игрок " + enemyPlayer.getName() + " отбил карты!");
+            match.setLogs("Игрок " + activePlayer.getName() + " отбил карты!");
         } else {
             if (next != null) {
                 next.work(match, activePlayer, enemyPlayer);
