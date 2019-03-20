@@ -94,4 +94,8 @@ public class Player {
         return str;
     }
 
+    public void clearFun() {
+        this.fun.clear();
+    }
+
 }
