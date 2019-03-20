@@ -589,4 +589,71 @@ public class TestGame {
         Assertions.assertEquals(match.getLogs(), "Игрок Он подкинул картишек!");
 
     }
+
+    @Test
+    void pickUpCardWithoutNull() {
+        HandlerSet handlerPickUpCard = new HandlerPickUpCard();
+        HandlerSet handlerRepelCard = new HandlerRepelCard(handlerPickUpCard);
+        HandlerSet handlerCloseSet = new HandlerCloseSet(handlerRepelCard);
+        HandlerSet handlerTossCard = new HandlerTossCard(handlerCloseSet);
+        HandlerSet handlerPutCard = new HandlerPutCard(handlerTossCard);
+        HandlerSet handlerCheckWin = new HandlerCheckWin(handlerPutCard);
+
+        Match match = new Match();
+        match.createPack("36");
+        match.getPack().setTrump("черви");
+        match.getPack().allExtractCard();
+
+        Player playerOne = new Player("Я");
+        Player playerTwo = new Player("Он");
+
+        playerOne.putFun(new Card("6", "черви"));
+        playerOne.putFun(new Card("6", "пик"));
+        playerOne.putFun(new Card("10", "пик"));
+
+        playerTwo.putFun(new Card("7", "черви"));
+        playerTwo.putFun(new Card("8", "пик"));
+
+        Observer systemPutCardIntoFun = new SystemPutCardIntoFun();
+        match.attach(systemPutCardIntoFun);
+        match.setActive(playerOne.getName());
+        match.setActivePlayer(playerOne);
+
+
+        playerOne.setActiveCard(playerOne.extractFun(0));
+
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+
+
+        playerTwo.setActiveCard(playerTwo.extractFun(0));
+
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+
+
+        playerOne.setActiveCard(playerOne.extractFun(0));
+
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+
+
+        playerTwo.setActiveCard(new FactoryCardExotic().createCard("отмена"));
+
+        if (match.getActivePlayer() == playerOne.getName())
+            handlerCheckWin.work(match, playerOne, playerTwo);
+        else
+            handlerCheckWin.work(match, playerTwo, playerOne);
+
+        for(int i = 0; i < playerTwo.getFun().size(); i++) {
+            System.out.println(playerTwo.getFun().get(i).getSuit());
+            Assertions.assertNotEquals(playerTwo.getFun().get(i).getSuit(), "null");
+        }
+    }
 }

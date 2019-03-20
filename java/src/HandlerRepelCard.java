@@ -14,7 +14,7 @@ public class HandlerRepelCard extends HandlerSet {
                 activePlayer.getActiveCard().getSuit() != "отмена") {
             if (activePlayer.getActiveCard().getStrong(enemyPlayer.getRunningCard().getSuit()) >
                     enemyPlayer.getRunningCard().getStrong(enemyPlayer.getRunningCard().getSuit())) {
-                match.putCache(activePlayer.getRunningCard());
+                match.putCache(activePlayer.getActiveCard());
                 match.putCache(enemyPlayer.getRunningCard());
                 activePlayer.setRunningCard(new FactoryCardExotic().createCard("null"));
                 enemyPlayer.setRunningCard(new FactoryCardExotic().createCard("null"));

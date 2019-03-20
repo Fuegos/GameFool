@@ -88,6 +88,7 @@ public class MyWindowApp extends JFrame{
         playerOneButton = new JButton("Кинуть");
         playerOneButton.setBounds(60, 120, 100, 30);
         picLabel.add(playerOneButton);
+
         playerTwoButton = new JButton("Кинуть");
         playerTwoButton.setBounds(740, 120, 100, 30);
         picLabel.add(playerTwoButton);
